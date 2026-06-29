@@ -349,6 +349,13 @@ function displaySourceCategory(item) {
   return isDualPlatform(item) ? '双平台' : (item.sourceCategory || item.source || '-');
 }
 
+function dualWeightedScore(sources) {
+  const mq = (sources || []).find(source => source.platform === '谜圈');
+  const qd = (sources || []).find(source => source.platform === '千岛');
+  if (!mq || !qd || mq.score == null || qd.score == null) return null;
+  return Math.round((Number(mq.score) * 0.6 + Number(qd.score) * 0.4) * 100) / 100;
+}
+
 // ===== Filtering =====
 function filteredItems() {
   const kw = el.search.value.trim().toLowerCase();
@@ -466,7 +473,7 @@ function renderList(items) {
 
   function cardHTML(item) {
     const active = item.scriptId === state.selectedId;
-    const sc = item.score;
+    const sc = dualWeightedScore(item._sources) ?? item.score;
     const sClass = scoreClass(sc);
     const sources = item._sources || [];
     let scoreHTML = '';
@@ -538,7 +545,7 @@ function renderDetail(items) {
   el.detailEmpty.style.display = 'none';
   el.detailContent.style.display = '';
 
-  const sc = item.score;
+  const sc = dualWeightedScore(item._sources) ?? item.score;
   const sClass = scoreClass(sc);
   const dq = item.dataQuality || inferDataQuality(item);
 
@@ -603,17 +610,17 @@ function renderDetail(items) {
           <div class="compare-platform">🎭 谜圈</div>
           <div class="compare-score ${scoreClass(item._sources[0].score)}">${fmt(item._sources[0].score)}</div>
           <div class="compare-meta">${fmt(item._sources[0].commentCount)} 点评 · ${fmt(item._sources[0].playedCount)} 玩过</div>
-          <div class="compare-meta" style="margin-top:4px;color:var(--accent)">权重: ${fmt(item._sources[0].commentCount)}</div>
+          <div class="compare-meta" style="margin-top:4px;color:var(--accent)">固定权重: 60%</div>
         </div>
         <div class="compare-card qiandao">
           <div class="compare-platform">🏝 千岛</div>
           <div class="compare-score ${scoreClass(item._sources[1].score)}">${fmt(item._sources[1].score)}</div>
           <div class="compare-meta">${fmt(item._sources[1].wantCount)} 想玩</div>
-          <div class="compare-meta" style="margin-top:4px;color:var(--accent)">权重: ${fmt(Math.max(1, Math.round((item._sources[1].wantCount || 0) / 10)))}</div>
+          <div class="compare-meta" style="margin-top:4px;color:var(--accent)">固定权重: 40%</div>
         </div>
       </div>
       <div style="text-align:center;padding:8px;color:var(--text-secondary);font-size:13px">
-        🎯 加权综合: ${(item.score ?? 0).toFixed(2)} = 谜圈${item._sources[0].score}×0.6 + 千岛${item._sources[1].score}×0.4
+        🎯 加权综合: ${(dualWeightedScore(item._sources) ?? item.score ?? 0).toFixed(2)} = 谜圈${item._sources[0].score}×0.6 + 千岛${item._sources[1].score}×0.4
       </div>
     ` : ''}
 
