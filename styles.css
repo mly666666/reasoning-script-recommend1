@@ -263,36 +263,149 @@ select.input-field option { background: var(--bg-card); color: var(--text-primar
     overflow-x: hidden;
     overflow-y: auto;
   }
+  body { font-size: 13px; }
   .app {
     min-height: 100vh;
     height: auto;
     overflow: visible;
   }
-  .header { flex-direction: column; gap: 6px; }
-  .header-left, .header-right {
+  .watermark img {
+    width: 70vw;
+    opacity: .35;
+  }
+  .header {
+    position: static;
+    flex-direction: row;
+    gap: 8px;
+    padding: 10px 12px;
+    align-items: center;
+  }
+  .header-left {
     width: 100%;
-    flex-wrap: wrap;
+    min-width: 0;
     justify-content: flex-start;
   }
-  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  .header-right {
+    display: none;
+  }
+  .logo-icon {
+    height: 32px;
+  }
+  h1 {
+    font-size: 18px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .badge {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .stats-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  .stat-card {
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 74px;
+  }
+  .stat-value {
+    font-size: 22px;
+  }
+  .stat-label {
+    font-size: 11px;
+  }
   .toolbar { padding: 0 12px 12px; }
-  .filters { flex-direction: column; } #search { min-width: 0; width: 100%; }
+  .toolbar-row {
+    display: block;
+  }
+  .status-text {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 12px;
+  }
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .input-field {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  #search {
+    min-width: 0;
+    width: 100%;
+  }
   .main-layout {
     display: flex;
     flex-direction: column;
     overflow: visible;
     min-height: 0;
-    padding: 0 12px 16px;
+    padding: 0 12px 18px;
+    gap: 12px;
   }
   .panel {
     overflow: visible;
+    border-radius: 14px;
   }
   .panel:first-child {
     max-height: none;
   }
+  .panel-header {
+    padding: 12px 14px;
+  }
+  .panel-header h2 {
+    font-size: 16px;
+  }
+  .count-pill {
+    font-size: 12px;
+    padding: 4px 9px;
+  }
   .list-scroll,
   .panel-detail {
     overflow: visible;
+  }
+  .section-header {
+    position: static;
+    margin: 8px 8px 6px;
+  }
+  .script-card {
+    margin: 8px;
+    padding: 10px;
+    border-radius: 12px;
+    align-items: center;
+  }
+  .script-card-cover {
+    width: 54px;
+    height: 74px;
+  }
+  .script-card-title {
+    font-size: 16px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+  .script-card-meta {
+    flex-wrap: wrap;
+    gap: 3px 5px;
+    font-size: 11px;
+  }
+  .script-card-tags {
+    gap: 4px;
+  }
+  .tag-pill {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  .score-badge {
+    font-size: 18px;
   }
   .detail-content {
     padding: 14px;
