@@ -1,11 +1,11 @@
 :root {
   --bg-primary: #0f1117;
-  --bg-secondary: #161822;
-  --panel-alpha: 0.85;
+  --bg-secondary: rgba(22,24,34,0.88);
+  --panel-alpha: 0.72;
   --bg-card: rgba(26,29,40,var(--panel-alpha));
-  --bg-card2: rgba(26,29,40,0.55);
-  --bg-card-hover: #1f2230;
-  --bg-input: #1e2130;
+  --bg-card2: rgba(26,29,40,0.42);
+  --bg-card-hover: rgba(31,34,48,0.78);
+  --bg-input: rgba(30,33,48,0.72);
   --border: #2a2d3a;
   --border-light: #333648;
   --text-primary: #e8eaed;
@@ -35,12 +35,12 @@ body {
 .watermark {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   display: flex; align-items: center; justify-content: center;
-  opacity: 0.22;
+  opacity: 0.32;
 }
 .watermark img {
   width: min(55vw, 600px);
   height: auto;
-  filter: drop-shadow(0 0 40px rgba(99,102,241,0.3));
+  filter: drop-shadow(0 0 44px rgba(99,102,241,0.38));
 }
 /* Watermark slider */
 .watermark-slider {
@@ -271,7 +271,7 @@ select.input-field option { background: var(--bg-card); color: var(--text-primar
   }
   .watermark img {
     width: 70vw;
-    opacity: .35;
+    opacity: .45;
   }
   .header {
     position: static;

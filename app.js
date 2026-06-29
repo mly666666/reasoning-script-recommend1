@@ -84,6 +84,13 @@ function applyPublicDataMode() {
   if (el.status) el.status.textContent = '已加载公开数据';
 }
 
+function scrollDetailIntoViewOnMobile() {
+  if (!el.panelDetail || !window.matchMedia('(max-width: 680px)').matches) return;
+  requestAnimationFrame(() => {
+    el.panelDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
 function saveFixProgress() {
   localStorage.setItem('miquan.fixProgress', JSON.stringify({
     fixQueue: state.fixQueue,
@@ -1281,6 +1288,7 @@ el.scriptList.addEventListener('click', e => {
   if (!card) return;
   state.selectedId = card.dataset.id;
   render();
+  scrollDetailIntoViewOnMobile();
 });
 el.exportXls.addEventListener('click', exportXls);
 el.exportMd.addEventListener('click', exportMd);
