@@ -1,0 +1,13 @@
+﻿node_modules/
+npm-debug.log*
+
+# Local capture/source files. Do not upload HAR captures.
+work/*.har
+work/*.json
+work/*.jsonl
+!work/build-deploy-data.js
+
+# Local generated/exported artifacts.
+outputs/
+*.bak
+*.bak2

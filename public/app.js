@@ -48,7 +48,7 @@ function saveItems() {
 async function loadBundledItems() {
   if (state.items.length > 0) return false;
   try {
-    const resp = await fetch('/data.json', { cache: 'no-store' });
+    const resp = await fetch('data.json', { cache: 'no-store' });
     if (!resp.ok) return false;
     const payload = await resp.json();
     const items = Array.isArray(payload) ? payload : payload.items;
