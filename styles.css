@@ -258,7 +258,60 @@ select.input-field option { background: var(--bg-card); color: var(--text-primar
   .toolbar-row { flex-direction: column; }
 }
 @media (max-width: 680px) {
+  html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .app {
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
+  }
   .header { flex-direction: column; gap: 6px; }
+  .header-left, .header-right {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
   .stats-bar { grid-template-columns: repeat(2,1fr); }
+  .toolbar { padding: 0 12px 12px; }
   .filters { flex-direction: column; } #search { min-width: 0; width: 100%; }
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    min-height: 0;
+    padding: 0 12px 16px;
+  }
+  .panel {
+    overflow: visible;
+  }
+  .panel:first-child {
+    max-height: none;
+  }
+  .list-scroll,
+  .panel-detail {
+    overflow: visible;
+  }
+  .detail-content {
+    padding: 14px;
+  }
+  .detail-hero {
+    flex-direction: column;
+  }
+  .detail-cover {
+    width: 96px;
+    height: 132px;
+  }
+  .detail-title {
+    font-size: 18px;
+  }
+  .detail-big-score {
+    font-size: 36px;
+  }
+  .detail-grid,
+  .compare-row {
+    grid-template-columns: 1fr;
+  }
 }
