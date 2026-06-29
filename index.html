@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>推理本双平台推荐</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="watermark">
+    <img src="logo.png" alt="" />
+  </div>
+  <div class="app">
+    <header class="header">
+      <div class="header-left">
+        <img src="logo.png" alt="" class="logo-icon" />
+        <h1>推理本双平台推荐</h1>
+        <span class="badge" id="totalBadge">0 部</span>
+      </div>
+      <div class="header-right">
+        <button id="exportXls" class="btn btn-outline" disabled>📊 导出Excel</button>
+        <button id="exportMd" class="btn btn-outline" disabled>📝 导出MD</button>
+        <button id="exportJson" class="btn btn-outline" disabled>💾 导出JSON</button>
+        <span class="watermark-slider">
+          <span>☕</span>
+          <input id="watermarkOpacity" type="range" min="5" max="40" value="22" title="商标透明度" />
+        </span>
+        <span class="watermark-slider">
+          <span>◐</span>
+          <input id="panelOpacity" type="range" min="30" max="95" value="85" title="面板透明度" />
+        </span>
+        <button id="clearAll" class="btn btn-danger-outline">清空</button>
+      </div>
+    </header>
+
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card"><span class="stat-value" id="statTotal">0</span><span class="stat-label">剧本总数</span></div>
+      <div class="stat-card"><span class="stat-value" id="statAvg">-</span><span class="stat-label">平均评分</span></div>
+      <div class="stat-card"><span class="stat-value" id="statPlayed">0</span><span class="stat-label">累计玩过</span></div>
+      <div class="stat-card"><span class="stat-value" id="statComments">0</span><span class="stat-label">累计点评</span></div>
+      <div class="stat-card accent"><span class="stat-value" id="statDual">0</span><span class="stat-label">双平台剧本</span></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-row">
+        <textarea id="links" class="input-area" placeholder="每行一个谜圈分享链接、scriptId 或剧本名"></textarea>
+        <div class="toolbar-actions">
+          <button id="fetchBtn" class="btn btn-primary">🔍 抓取详情</button>
+          <button id="enrichSelectedBtn" class="btn btn-outline" disabled>补当前本评论</button>
+          <button id="sourceBtn" class="btn btn-outline">📦 导入抓包</button>
+          <button id="qiandaoBtn" class="btn btn-outline">🏝 导入千岛</button>
+          <button id="resetHarBtn" class="btn btn-outline">重置抓包</button>
+          <label class="toggle-label">
+            <input id="reasoningOnly" type="checkbox" checked />
+            <span>只保留推理/还原本</span>
+          </label>
+          <span class="status-text" id="status">就绪</span>
+        </div>
+      </div>
+
+      <div class="fix-bar" id="fixBar">
+        <div class="fix-bar-left">
+          <button id="fixAllBtn" class="btn btn-warning">🔧 修正全部评分</button>
+          <button id="fixVisibleBtn" class="btn btn-outline">修正可见</button>
+          <button id="refreshCommentsBtn" class="btn btn-outline">💬 批量更新评价</button>
+          <button id="pauseFixBtn" class="btn btn-outline" style="display:none">⏸ 暂停修正</button>
+        </div>
+        <div class="fix-progress" id="fixProgress" style="display:none">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <span class="progress-text" id="progressText">0/0</span>
+          <span class="progress-eta" id="progressEta"></span>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="search" class="input-field" type="search" placeholder="🔍 搜索剧本名、标签、作者、发行方..." />
+        <select id="sourceFilter" class="input-field"><option value="">全部来源</option></select>
+        <select id="tagFilter" class="input-field"><option value="">全部类型</option></select>
+        <select id="yearFilter" class="input-field"><option value="">全部发布年份</option></select>
+        <select id="sortBy" class="input-field">
+          <option value="dual-desc">🔗 双平台优先</option>
+          <option value="score-desc">评分 ↓</option>
+          <option value="score-asc">评分 ↑</option>
+          <option value="comment-desc">点评 ↓</option>
+          <option value="name-asc">名称 A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="main-layout">
+      <aside class="panel panel-list" id="panelList">
+        <div class="panel-header"><h2>剧本列表</h2><span class="count-pill" id="listCount">0</span></div>
+        <div class="list-scroll" id="scriptList">
+          <div class="empty-state"><div class="empty-icon">📭</div><p class="empty-title">还没有数据</p><p class="empty-desc">从上方导入抓包数据或粘贴分享链接开始</p></div>
+        </div>
+      </aside>
+
+      <section class="panel panel-detail" id="panelDetail">
+        <div class="detail-empty" id="detailEmpty">
+          <div class="empty-icon-large">📋</div><p class="empty-title">选择一个剧本查看详情</p><p class="empty-desc">左侧列表中选择一个剧本</p>
+        </div>
+        <div class="detail-content" id="detailContent" style="display:none"></div>
+      </section>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
